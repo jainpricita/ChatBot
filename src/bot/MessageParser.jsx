@@ -1,0 +1,27 @@
+import React from 'react';
+
+const MessageParser = ({ children, actions }) => {
+  const parse = (message) => {
+    const lowercase=message.toLowerCase();
+    if (message.includes('got it')) {
+      actions.handleStart();
+    }
+    if (message.includes('hi')) {
+      actions.handleName();
+    }
+
+  };
+
+  return (
+    <div>
+      {React.Children.map(children, (child) => {
+        return React.cloneElement(child, {
+          parse: parse,
+          actions:{ },
+        });
+      })}
+    </div>
+  );
+};
+
+export default MessageParser;
