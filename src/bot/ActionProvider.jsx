@@ -1,17 +1,15 @@
 import React from 'react';
 import { createClientMessage} from 'react-chatbot-kit';
+import { useDispatch, useSelector } from 'react-redux';
+import { addName, userSelected } from '../redux/validationSlice';
 
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
-  const handleName = () => {
-    const botMessage = createChatBotMessage('Enter your Age');
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage],
-    }));
-  };
+  const {name,age}=useSelector(userSelected);
+  const dispatch=useDispatch();
+
   const handleStart = () => {
-    const message = createClientMessage('Got It');
+    const message = createClientMessage('Got It!');
      setState((prev) => ({
       ...prev,
       messages: [...prev.messages, message],
@@ -22,23 +20,40 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       messages: [...prev.messages, botMessage],
     }));
   };
- 
-  const handleAge=()=>{
-    const botMessage = createChatBotMessage('Enter your AgeThank you. In 5 seconds, bot will exit');
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage],
-    }));
+
+  const handleName=(input)=>{
+      dispatch(addName(input));
+      const botMessage = createChatBotMessage('Enter your Age',{
+        widget:"ageDropDown",
+      });
+      setState((prev) => ({
+        ...prev,
+        messages: [...prev.messages, botMessage],
+      })); 
   }
 
+  const handleAge=(input)=>{
+      const message = createClientMessage(input);
+     setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, message],
+    }));
+      const botMessage = createChatBotMessage('Thank you. In 5 seconds, bot will exit',{
+        widget:"ended",
+      });
+      setState((prev) => ({
+        ...prev,
+        messages: [...prev.messages, botMessage],
+      }));
+  }
   return (
     <div>
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           actions: {
-            handleName,
             handleStart,
-            handleAge,
+            handleName,
+            handleAge
           },
         });
       })}

@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding:0 9em;
 
 }
 h1{
@@ -17,13 +18,16 @@ h1{
 .center{
     text-align: center;
 }
-button{
+button,select{
     border: 2px solid #008caa;
     background-color: transparent;
     color:#008caa;
     border-radius: 5px;
     font-size: small;
     padding: 3px;
+}
+.widget{
+    margin-left: 55px;
 }
 .action-btn{
     font-size: large;
@@ -45,16 +49,20 @@ button{
 }
 
 .react-chatbot-kit-chat-container{
-    min-height: 90vh !important;
+    min-height: 80vh !important;
     min-width: 50vw !important;
     border: 1px solid #efefef;
     border-radius: 5px;
 }
-.react-chatbot-kit-chat-inner-container,.react-chatbot-kit-chat-message-container{
-    height: 40em !important;
+.react-chatbot-kit-chat-inner-container{
     overflow: hidden;
+    height: 100% !important;
+}
+.react-chatbot-kit-chat-inner-container,.react-chatbot-kit-chat-message-container{
+    /* height: 80vh !important; */
 }
 .react-chatbot-kit-chat-message-container{
+    height: 35em !important;
     overflow: scroll;
 }
 

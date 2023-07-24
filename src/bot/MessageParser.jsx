@@ -1,15 +1,9 @@
 import React from 'react';
 
 const MessageParser = ({ children, actions }) => {
+  
   const parse = (message) => {
-    const lowercase=message.toLowerCase();
-    if (message.includes('got it')) {
-      actions.handleStart();
-    }
-    if (message.includes('hi')) {
-      actions.handleName();
-    }
-
+      actions.handleName(message);
   };
 
   return (
@@ -17,7 +11,7 @@ const MessageParser = ({ children, actions }) => {
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           parse: parse,
-          actions:{ },
+          actions:{actions},
         });
       })}
     </div>
